@@ -28,11 +28,11 @@ describe('Player', function() {
 
     assert.equal(playerOne.id, 1);
     assert.equal(playerOne.token, 'bernerTongue');
-    assert.equal(playerOne.wins, 2);
+    assert.equal(playerOne.winCount, 2);
 
     assert.equal(playerTwo.id, 2);
     assert.equal(playerTwo.token, 'normalBerner');
-    assert.equal(playerTwo.wins, 1);
+    assert.equal(playerTwo.winCount, 1);
   });
 
   it('should track wins for a player based on game outcome', function() {
@@ -40,7 +40,7 @@ describe('Player', function() {
 
     playerOne.gainWin();
 
-    assert.equal(playerOne.wins, 3);
+    assert.equal(playerOne.winCount, 3);
   });
 
   it('should track wins for more than one player based on game outcome', function() {
@@ -50,8 +50,8 @@ describe('Player', function() {
     playerOne.gainWin();
     playerTwo.gainWin();
 
-    assert.equal(playerOne.wins, 3);
-    assert.equal(playerTwo.wins, 2);
+    assert.equal(playerOne.winCount, 3);
+    assert.equal(playerTwo.winCount, 2);
   });
 
     //add test for saveWinsToStorage() method for local storage
@@ -83,5 +83,4 @@ describe('Player', function() {
     assert.equal(playerTwo.tokensOnBoard, 2);
     assert.equal(playerOne.hasEnoughTokens, true);
   });
-
 });
