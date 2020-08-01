@@ -3,22 +3,27 @@ class Player {
     this.id = id;
     this.token = token;
     this.winCount = winCount;
-    this.tokensOnBoard = 0;
-    this.hasEnoughTokens = false;
     this.hasCurrentTurn = false;
-    //add spacesTaken property?
+    this.spacesTaken = [];
+    // this.currentSpace = 0;
+    // this.tokensOnBoard = 0;
+    // this.hasEnoughTokens = false;
   }
 
-  gainWin() {
-    this.winCount += 1;
-  }
-
-  placeToken() {
+  placeToken(player, game, space) {
     this.hasCurrentTurn = true;
-    this.tokensOnBoard += 1;
-    if (this.tokensOnBoard === 3) {
-      this.hasEnoughTokens = true;
+    // this.tokensOnBoard += 1;
+    game.blockedSpaces += 1;
+    game.availableSpaces -= 1;
+    for (var i = 0; i < game.allSpaces.length; i++) {
+      if (game.allSpaces[i] === space) {
+        game.allSpaces.splice(i, 1);
+      }
     }
+    this.spacesTaken.push(space);
+    // if (this.tokensOnBoard === 3) {
+    //   this.hasEnoughTokens = true;
+    // }
   }
 };
 
