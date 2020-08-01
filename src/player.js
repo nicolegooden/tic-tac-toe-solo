@@ -5,6 +5,8 @@ class Player {
     this.winCount = winCount;
     this.tokensOnBoard = 0;
     this.hasEnoughTokens = false;
+    this.hasCurrentTurn = false;
+    //add spacesTaken property?
   }
 
   gainWin() {
@@ -12,6 +14,7 @@ class Player {
   }
 
   placeToken() {
+    this.hasCurrentTurn = true;
     this.tokensOnBoard += 1;
     if (this.tokensOnBoard === 3) {
       this.hasEnoughTokens = true;
