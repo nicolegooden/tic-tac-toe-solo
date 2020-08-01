@@ -1,0 +1,25 @@
+{
+  "name": "tic-tac-toe-solo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/main.js",
+  "dependencies": {
+    "chai": "^4.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolegooden/tic-tac-toe-solo.git"
+  },
+  "author": "Nicole Gooden",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolegooden/tic-tac-toe-solo/issues"
+  },
+  "homepage": "https://github.com/nicolegooden/tic-tac-toe-solo#readme"
+}
