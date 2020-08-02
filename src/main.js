@@ -8,7 +8,7 @@ var currentGame;
 
 var winsPlayer1 = document.querySelector('.player-one-wins');
 var winsPlayer2 = document.querySelector('.player-two-wins');
-var whoseTurn = document.querySelector('.turn');
+var whoseTurn = document.querySelector('.declare-turn');
 var allSpaces = document.querySelectorAll('.board');
 var token1 = document.querySelector('.harper-with-tongue');
 var token2 = document.querySelector('.harper-with-smile');
@@ -17,7 +17,6 @@ var token2 = document.querySelector('.harper-with-smile');
 
 winsPlayer1.addEventListener('click', increaseRecord);
 winsPlayer2.addEventListener('click', increaseRecord);
-whoseTurn.addEventListener('click', switchTurns);
 window.addEventListener('click', addToken);
 window.addEventListener('load', enlistPlayers);
 window.addEventListener('load', startGame);
@@ -28,47 +27,48 @@ window.addEventListener('load', function showTurnWrapper() {
 //////// event handlers ////////
 
 function enlistPlayers() {
-  var playerOne = new Player(1, 'berner tongue', 0, true);
-  var playerTwo = new Player(2, 'berner smile', 0, false);
+  var playerOne = new Player(1, token1);
+  var playerTwo = new Player(2, token2);
   currentPlayer1 = playerOne;
   currentPlayer2 = playerTwo;
 };
 
 function startGame() {
-  var newGame = new Game(currentPlayer1, currentPlayer2);
+  var newGame = new Game(currentPlayer1, currentPlayer2, true, false);
   currentGame = newGame;
 };
 
 function addToken(event) {
   for (var i = 0; i < allSpaces.length; i++) {
-    if (event.target === allSpaces[i] && currentPlayer1.hasCurrentTurn) {
+    if (event.target === allSpaces[i] && currentGame.player1Turn) {
       currentPlayer1.placeToken(currentPlayer1, currentGame, allSpaces[i]);
       allSpaces[i].innerHTML =
         `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
     }
-    if (event.target === allSpaces[i] && currentPlayer2.hasCurrentTurn) {
+    if (event.target === allSpaces[i] && currentGame.player2Turn) {
       currentPlayer2.placeToken(currentPlayer2, currentGame, allSpaces[i]);
       allSpaces[i].innerHTML =
         `<img class="harper-with-smile" src="./assets/harper-with-smile.jpg" alt="player-two-token">`;
     }
   }
-  currentPlayer1.hasCurrentTurn = !currentPlayer1.hasCurrentTurn;
-  currentPlayer2.hasCurrentTurn = !currentPlayer2.hasCurrentTurn;
+  switchTurns();
+  showTurn();
 };
 
 function showTurn(player1, player2) {
-  if (player1.hasCurrentTurn) {
-    whoseTurn.innerText = `It's ${token1}'s turn!`;
+  if (currentGame.player1Turn) {
+    whoseTurn.innerHTML = `<h1 class="turn">It's <img class="harper-with-tongue small" src="./assets/harper-with-tongue.jpg" alt="player-one-token">'s turn!</h1>`;
   }
-  if (player2.hasCurrentTurn) {
-    whoseTurn.innerText = `It's ${token2}'s turn!`;
+  if (currentGame.player2Turn) {
+    whoseTurn.innerHTML = `<h1 class="turn">It's <img class="harper-with-smile small" src="./assets/harper-with-smile.jpg" alt="player-two-token">'s turn!</h1>`;
   }
-};
-
-function increaseRecord() {
-
 };
 
 function switchTurns() {
+  currentGame.player1Turn = !currentGame.player1Turn;
+  currentGame.player2Turn = !currentGame.player2Turn;
+};
+
+function increaseRecord() {
 
 };
