@@ -70,39 +70,39 @@ main {
 		font-size: 150%;
 	}
 
-	.space-1 {
+	.space-0 {
 		grid-column: 1;
+		grid-row: 1;
+	}
+	.space-1 {
+		grid-column: 2;
 		grid-row: 1;
 	}
 	.space-2 {
-		grid-column: 2;
+		grid-column: 3;
 		grid-row: 1;
 	}
 	.space-3 {
-		grid-column: 3;
-		grid-row: 1;
+		grid-column: 1;
+		grid-row: 2;
 	}
 	.space-4 {
-		grid-column: 1;
+		grid-column: 2;
 		grid-row: 2;
 	}
 	.space-5 {
-		grid-column: 2;
-		grid-row: 2;
-	}
-	.space-6 {
 		grid-column: 3;
 		grid-row: 2;
 	}
-	.space-7 {
+	.space-6 {
 		grid-column: 1;
 		grid-row: 3;
 	}
-	.space-8 {
+	.space-7 {
 		grid-column: 2;
 		grid-row: 3;
 	}
-	.space-9 {
+	.space-8 {
 		grid-column: 3;
 		grid-row: 3;
 	}
