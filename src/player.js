@@ -4,6 +4,7 @@ class Player {
     this.token = token;
     this.winCount = 0;
     this.spacesTaken = [];
+    this.hasVictory = false;
   }
 
   placeToken(player, game, space) {
