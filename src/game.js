@@ -59,10 +59,6 @@ class Game {
       this.readyToReset = true;
     }
   }
-
-  // trackPlayerTurns() {
-  //
-  // }
 };
 
 // module.exports = Game;
