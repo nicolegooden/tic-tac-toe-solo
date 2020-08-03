@@ -54,6 +54,7 @@ function addToken(event) {
       switchTurns();
     }
   }
+  verifyWinConditions();
   showTurn();
 };
 
@@ -76,7 +77,22 @@ function showRecord() {
   winsPlayer2.innerText = '0 WINS';
 };
 
-function increaseRecord() { //add to functionality for tracking wins
-  winsPlayer1.innerHTML = <h1 class="player-one-wins">``${currentPlayer1.winCount} WINS</h1>;
-  winsPlayer2.innerText = <h1 class="player-one-wins">``${currentPlayer1.winCount} WINS</h1>;
+function verifyWinConditions() {
+  if (currentPlayer1.spacesTaken.length >=3 || currentPlayer2.spacesTaken.length >=3) {
+    currentGame.checkForWin(currentPlayer1);
+    currentGame.checkForWin(currentPlayer2);
+  }
+  if (currentGame.hasEnded) {
+    increaseRecord();
+
+  }
 };
+
+function increaseRecord() {
+  winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentPlayer1.winCount} WINS</h1>`;
+  winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentPlayer2.winCount} WINS</h1>`;
+};
+
+// function resetBoard() {
+//
+// }
