@@ -22,6 +22,7 @@ board.addEventListener('click', addToken);
 window.addEventListener('load', enlistPlayers);
 window.addEventListener('load', startGame);
 window.addEventListener('load', showTurn);
+window.addEventListener('load', showRecord);
 
 //////// event handlers ////////
 
@@ -70,6 +71,12 @@ function switchTurns() {
   currentGame.player2Turn = !currentGame.player2Turn;
 };
 
-function increaseRecord() {
+function showRecord() {
+  winsPlayer1.innerText = '0 WINS';
+  winsPlayer2.innerText = '0 WINS';
+};
 
+function increaseRecord() { //add to functionality for tracking wins
+  winsPlayer1.innerHTML = <h1 class="player-one-wins">``${currentPlayer1.winCount} WINS</h1>;
+  winsPlayer2.innerText = <h1 class="player-one-wins">``${currentPlayer1.winCount} WINS</h1>;
 };
