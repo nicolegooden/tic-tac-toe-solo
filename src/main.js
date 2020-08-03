@@ -40,18 +40,19 @@ function startGame() {
 function addToken(event) {
   var spaceNumber = event.target.classList[1].split('-')[1];
   for (var i = 0; i < allSpaces.length; i++) {
-    if (event.target === allSpaces[i] && currentGame.player1Turn) {
+    if (event.target === allSpaces[i] && currentGame.player1Turn && allSpaces[i].innerHTML === '') {
       currentPlayer1.placeToken(currentPlayer1, currentGame, spaceNumber);
       allSpaces[i].innerHTML =
         `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
+      switchTurns();
     }
-    if (event.target === allSpaces[i] && currentGame.player2Turn) {
+    if (event.target === allSpaces[i] && currentGame.player2Turn && allSpaces[i].innerHTML === '') {
       currentPlayer2.placeToken(currentPlayer2, currentGame, spaceNumber);
       allSpaces[i].innerHTML =
         `<img class="harper-with-smile" src="./assets/harper-with-smile.jpg" alt="player-two-token">`;
+      switchTurns();
     }
   }
-  switchTurns();
   showTurn();
 };
 
