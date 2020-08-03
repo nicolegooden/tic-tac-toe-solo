@@ -19,6 +19,7 @@ var board = document.querySelector('.board-layout');
 winsPlayer1.addEventListener('click', increaseRecord);
 winsPlayer2.addEventListener('click', increaseRecord);
 board.addEventListener('click', addToken);
+board.addEventListener('click', addToken);
 window.addEventListener('load', enlistPlayers);
 window.addEventListener('load', startGame);
 window.addEventListener('load', showTurn);
@@ -77,6 +78,14 @@ function showRecord() {
   winsPlayer2.innerText = '0 WINS';
 };
 
+function updateFromGameEnd() {
+  currentGame.detectReset(currentPlayer1, currentPlayer2);
+  if (currentGame.hasEnded) {
+    increaseRecord();
+    resetBoard();
+  }
+};
+
 function verifyWinConditions() {
   if (currentPlayer1.spacesTaken.length >=3 || currentPlayer2.spacesTaken.length >=3) {
     currentGame.checkForWin(currentPlayer1);
@@ -84,11 +93,7 @@ function verifyWinConditions() {
       currentGame.checkForWin(currentPlayer2);
     }
   }
-  currentGame.detectReset(currentPlayer1, currentPlayer2);
-  if (currentGame.hasEnded) {
-    increaseRecord();
-    resetBoard();
-  }
+  updateFromGameEnd();
 };
 
 function increaseRecord() {
@@ -97,10 +102,8 @@ function increaseRecord() {
 };
 
 function resetBoard() {
-  for (var i = 0; i < allSpaces.length; i++) {
-    allSpaces[i].innerHTML = '';
-  }
   stateWinner();
+  window.setTimeout(clearBoard, 2600);
   window.setTimeout(restartNewGame, 2600);
 };
 
@@ -121,4 +124,12 @@ function restartNewGame() {
   startGame();
   switchTurns();
   showTurn();
-}
+  currentPlayer1.hasVictory = false;
+  currentPlayer2.hasVictory = false;
+};
+
+function clearBoard() {
+  for (var i = 0; i < allSpaces.length; i++) {
+    allSpaces[i].innerHTML = '';
+  }
+};
