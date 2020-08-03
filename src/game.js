@@ -11,6 +11,11 @@ class Game {
     this.player2Turn = player2Turn;
   }
 
+  // enlistPlayers() {
+  //   var currentPlayer1  = new Player(1, token1);
+  //   var currentPlayer2 = new Player(2, token2);
+  // }
+
   checkForWin(player) {
     if (player.spacesTaken.includes(0) && player.spacesTaken.includes(1) && player.spacesTaken.includes(2)) {
       player.winCount += 1;
