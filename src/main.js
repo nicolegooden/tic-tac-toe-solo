@@ -12,17 +12,16 @@ var whoseTurn = document.querySelector('.declare-turn');
 var allSpaces = document.querySelectorAll('.board');
 var token1 = document.querySelector('.harper-with-tongue');
 var token2 = document.querySelector('.harper-with-smile');
+var board = document.querySelector('.board-layout');
 
 //////// event listeners ////////
 
 winsPlayer1.addEventListener('click', increaseRecord);
 winsPlayer2.addEventListener('click', increaseRecord);
-window.addEventListener('click', addToken);
+board.addEventListener('click', addToken);
 window.addEventListener('load', enlistPlayers);
 window.addEventListener('load', startGame);
-window.addEventListener('load', function showTurnWrapper() {
-  showTurn(currentPlayer1, currentPlayer2);
-});
+window.addEventListener('load', showTurn);
 
 //////// event handlers ////////
 
@@ -39,14 +38,15 @@ function startGame() {
 };
 
 function addToken(event) {
+  var spaceNumber = event.target.classList[1].split('-')[1];
   for (var i = 0; i < allSpaces.length; i++) {
     if (event.target === allSpaces[i] && currentGame.player1Turn) {
-      currentPlayer1.placeToken(currentPlayer1, currentGame, allSpaces[i]);
+      currentPlayer1.placeToken(currentPlayer1, currentGame, spaceNumber);
       allSpaces[i].innerHTML =
         `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
     }
     if (event.target === allSpaces[i] && currentGame.player2Turn) {
-      currentPlayer2.placeToken(currentPlayer2, currentGame, allSpaces[i]);
+      currentPlayer2.placeToken(currentPlayer2, currentGame, spaceNumber);
       allSpaces[i].innerHTML =
         `<img class="harper-with-smile" src="./assets/harper-with-smile.jpg" alt="player-two-token">`;
     }
@@ -55,7 +55,7 @@ function addToken(event) {
   showTurn();
 };
 
-function showTurn(player1, player2) {
+function showTurn() {
   if (currentGame.player1Turn) {
     whoseTurn.innerHTML = `<h1 class="turn">It's <img class="harper-with-tongue small" src="./assets/harper-with-tongue.jpg" alt="player-one-token">'s turn!</h1>`;
   }
