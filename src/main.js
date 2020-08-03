@@ -54,8 +54,8 @@ function addToken(event) {
       switchTurns();
     }
   }
-  verifyWinConditions();
   showTurn();
+  verifyWinConditions();
 };
 
 function showTurn() {
@@ -80,11 +80,14 @@ function showRecord() {
 function verifyWinConditions() {
   if (currentPlayer1.spacesTaken.length >=3 || currentPlayer2.spacesTaken.length >=3) {
     currentGame.checkForWin(currentPlayer1);
-    currentGame.checkForWin(currentPlayer2);
+    if (!currentGame.hasEnded) {
+      currentGame.checkForWin(currentPlayer2);
+    }
   }
+  currentGame.detectReset(currentPlayer1, currentPlayer2);
   if (currentGame.hasEnded) {
     increaseRecord();
-
+    resetBoard();
   }
 };
 
@@ -93,6 +96,29 @@ function increaseRecord() {
   winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentPlayer2.winCount} WINS</h1>`;
 };
 
-// function resetBoard() {
-//
-// }
+function resetBoard() {
+  for (var i = 0; i < allSpaces.length; i++) {
+    allSpaces[i].innerHTML = '';
+  }
+  stateWinner();
+  window.setTimeout(restartNewGame, 2600);
+};
+
+function stateWinner() {
+  whoseTurn.innerHTML = '';
+  if (currentPlayer1.hasVictory) {
+    whoseTurn.innerHTML = `<h2 class="turn">New victory for <img class="harper-with-tongue small" src="./assets/harper-with-tongue.jpg" alt="player-one-token">!</h2>`;
+  }
+  if (currentPlayer2.hasVictory) {
+    whoseTurn.innerHTML = `<h2 class="turn">New victory for <img class="harper-with-smile small" src="./assets/harper-with-smile.jpg" alt="player-two-token">!</h2>`;
+  }
+  if (!currentPlayer1.hasVictory && !currentPlayer2.hasVictory) {
+    whoseTurn.innerHTML = `<h1 class="turn">Sad woof, it's a tie</h1>`;
+  }
+};
+
+function restartNewGame() {
+  startGame();
+  switchTurns();
+  showTurn();
+}
