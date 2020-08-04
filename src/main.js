@@ -62,10 +62,10 @@ function addToken(event, player) {
 
 function showTurn() {
   if (currentGame.player1Turn) {
-    whoseTurn.innerHTML = `<h1 class="turn">It's <img class="harper-with-tongue small" src="./assets/harper-with-tongue.jpg" alt="player-one-token">'s turn!</h1>`;
+    whoseTurn.innerHTML = `<h1 class="turn">It's ${currentPlayer1.token}'s turn!</h1>`;
   }
   if (currentGame.player2Turn) {
-    whoseTurn.innerHTML = `<h1 class="turn">It's <img class="harper-with-smile small" src="./assets/harper-with-smile.jpg" alt="player-two-token">'s turn!</h1>`;
+    whoseTurn.innerHTML = `<h1 class="turn">It's ${currentPlayer2.token}'s turn!</h1>`;
   }
 };
 
@@ -112,10 +112,10 @@ function resetBoard() {
 function stateWinner() {
   whoseTurn.innerHTML = '';
   if (currentPlayer1.hasVictory) {
-    whoseTurn.innerHTML = `<h2 class="turn">New victory for <img class="harper-with-tongue small" src="./assets/harper-with-tongue.jpg" alt="player-one-token">!</h2>`;
+    whoseTurn.innerHTML = `<h2 class="turn">New victory for ${currentPlayer1.token}!`;
   }
   if (currentPlayer2.hasVictory) {
-    whoseTurn.innerHTML = `<h2 class="turn">New victory for <img class="harper-with-smile small" src="./assets/harper-with-smile.jpg" alt="player-two-token">!</h2>`;
+    whoseTurn.innerHTML = `<h2 class="turn">New victory for ${currentPlayer2.token}!`;
   }
   if (!currentPlayer1.hasVictory && !currentPlayer2.hasVictory) {
     whoseTurn.innerHTML = `<h1 class="turn">Sad woof, it's a tie</h1>`;
