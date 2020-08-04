@@ -77,5 +77,3 @@ class Game {
     player2.spacesTaken = [];
   }
 };
-
-// module.exports = Game;
