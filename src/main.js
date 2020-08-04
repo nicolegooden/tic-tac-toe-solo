@@ -19,12 +19,13 @@ var board = document.querySelector('.board-layout');
 winsPlayer1.addEventListener('click', updateRecord);
 winsPlayer2.addEventListener('click', updateRecord);
 board.addEventListener('click', addToken);
-board.addEventListener('click', addToken);
-window.addEventListener('load', enlistPlayers);
-window.addEventListener('load', startGame);
-window.addEventListener('load', showTurn);
-window.addEventListener('load', showRecord);
-window.addEventListener('load', retrieveWins);
+window.addEventListener('load', function actOnLoad() {
+  enlistPlayers();
+  startGame();
+  showTurn();
+  showRecord();
+  retrieveWins();
+});
 
 //////// event handlers ////////
 
@@ -140,4 +141,4 @@ function clearBoard() {
 function retrieveWins() {
   currentPlayer1.retrieveWinsFromStorage();
   currentPlayer2.retrieveWinsFromStorage();
-}
+};
