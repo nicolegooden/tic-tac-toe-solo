@@ -144,4 +144,10 @@ function saveWins() {
 function retrieveWins() {
   currentPlayer1.retrieveWinsFromStorage();
   currentPlayer2.retrieveWinsFromStorage();
+  displayRetrievedWins();
+};
+
+function displayRetrievedWins() {
+  winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentPlayer1.winCount} WINS</h1>`;
+  winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentPlayer2.winCount} WINS</h1>`;
 };
