@@ -25,7 +25,7 @@ window.addEventListener('load', function actOnLoad() {
   retrieveWins();
 });
 
-//////// event handlers ////////
+//////// event handlers & other functions ////////
 
 function enlistPlayers() {
   var token1 = `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
@@ -41,16 +41,16 @@ function startGame() {
   currentGame = newGame;
 };
 
-function addToken(event, player) {
+function addToken(event) {
   var spaceNumber = event.target.classList[1].split('-')[1];
   for (var i = 0; i < allBoardSpaces.length; i++) {
     if (event.target === allBoardSpaces[i] && allBoardSpaces[i].innerHTML === '') {
       if (currentGame.player1Turn) {
-        currentPlayer1.placeToken(currentPlayer1, currentGame, spaceNumber);
+        currentGame.placeToken(currentPlayer1, spaceNumber);
         allBoardSpaces[i].innerHTML = currentPlayer1.token;
       }
       if (currentGame.player2Turn) {
-        currentPlayer2.placeToken(currentPlayer2, currentGame, spaceNumber);
+        currentGame.placeToken(currentPlayer2, spaceNumber);
         allBoardSpaces[i].innerHTML = currentPlayer2.token;
       }
       switchTurns();
