@@ -9,7 +9,7 @@ var currentGame;
 var winsPlayer1 = document.querySelector('.player-one-wins');
 var winsPlayer2 = document.querySelector('.player-two-wins');
 var whoseTurn = document.querySelector('.declare-turn');
-var allSpaces = document.querySelectorAll('.board');
+var allBoardSpaces = document.querySelectorAll('.board');
 var board = document.querySelector('.board-layout');
 
 //////// event listeners ////////
@@ -43,15 +43,15 @@ function startGame() {
 
 function addToken(event, player) {
   var spaceNumber = event.target.classList[1].split('-')[1];
-  for (var i = 0; i < allSpaces.length; i++) {
-    if (event.target === allSpaces[i] && allSpaces[i].innerHTML === '') {
+  for (var i = 0; i < allBoardSpaces.length; i++) {
+    if (event.target === allBoardSpaces[i] && allBoardSpaces[i].innerHTML === '') {
       if (currentGame.player1Turn) {
         currentPlayer1.placeToken(currentPlayer1, currentGame, spaceNumber);
-        allSpaces[i].innerHTML = currentPlayer1.token;
+        allBoardSpaces[i].innerHTML = currentPlayer1.token;
       }
       if (currentGame.player2Turn) {
         currentPlayer2.placeToken(currentPlayer2, currentGame, spaceNumber);
-        allSpaces[i].innerHTML = currentPlayer2.token;
+        allBoardSpaces[i].innerHTML = currentPlayer2.token;
       }
       switchTurns();
     }
@@ -94,14 +94,13 @@ function verifyWinConditions() {
       currentGame.checkForWin(currentPlayer2);
     }
   }
+  saveWins();
   updateFromGameEnd();
 };
 
 function updateRecord() {
   winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentPlayer1.winCount} WINS</h1>`;
   winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentPlayer2.winCount} WINS</h1>`;
-  currentPlayer1.saveWinsToStorage();
-  currentPlayer2.saveWinsToStorage();
 };
 
 function resetBoard() {
@@ -132,9 +131,14 @@ function restartNewGame() {
 };
 
 function clearBoard() {
-  for (var i = 0; i < allSpaces.length; i++) {
-    allSpaces[i].innerHTML = '';
+  for (var i = 0; i < allBoardSpaces.length; i++) {
+    allBoardSpaces[i].innerHTML = '';
   }
+};
+
+function saveWins() {
+  currentPlayer1.saveWinsToStorage();
+  currentPlayer2.saveWinsToStorage();
 };
 
 function retrieveWins() {
