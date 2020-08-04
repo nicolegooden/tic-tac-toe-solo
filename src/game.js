@@ -19,10 +19,12 @@ class Game {
   checkForWin(player) {
     if (player.spacesTaken.includes(0) && player.spacesTaken.includes(1) && player.spacesTaken.includes(2)) {
       player.winCount += 1;
+      player.hasVictory = true;
       return this.hasEnded = true;
     }
     if (player.spacesTaken.includes(3) && player.spacesTaken.includes(4) && player.spacesTaken.includes(5)) {
       player.winCount += 1;
+      player.hasVictory = true;
       return this.hasEnded = true;
     }
     if (player.spacesTaken.includes(6) && player.spacesTaken.includes(7) && player.spacesTaken.includes(8)) {
