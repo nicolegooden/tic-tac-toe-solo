@@ -16,14 +16,15 @@ var board = document.querySelector('.board-layout');
 
 //////// event listeners ////////
 
-winsPlayer1.addEventListener('click', increaseRecord);
-winsPlayer2.addEventListener('click', increaseRecord);
+winsPlayer1.addEventListener('click', updateRecord);
+winsPlayer2.addEventListener('click', updateRecord);
 board.addEventListener('click', addToken);
 board.addEventListener('click', addToken);
 window.addEventListener('load', enlistPlayers);
 window.addEventListener('load', startGame);
 window.addEventListener('load', showTurn);
 window.addEventListener('load', showRecord);
+window.addEventListener('load', retrieveWins);
 
 //////// event handlers ////////
 
@@ -81,7 +82,7 @@ function showRecord() {
 function updateFromGameEnd() {
   currentGame.detectReset(currentPlayer1, currentPlayer2);
   if (currentGame.hasEnded) {
-    increaseRecord();
+    updateRecord();
     resetBoard();
   }
 };
@@ -96,9 +97,11 @@ function verifyWinConditions() {
   updateFromGameEnd();
 };
 
-function increaseRecord() {
+function updateRecord() {
   winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentPlayer1.winCount} WINS</h1>`;
   winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentPlayer2.winCount} WINS</h1>`;
+  currentPlayer1.saveWinsToStorage();
+  currentPlayer2.saveWinsToStorage();
 };
 
 function resetBoard() {
@@ -133,3 +136,8 @@ function clearBoard() {
     allSpaces[i].innerHTML = '';
   }
 };
+
+function retrieveWins() {
+  currentPlayer1.retrieveWinsFromStorage();
+  currentPlayer2.retrieveWinsFromStorage();
+}
