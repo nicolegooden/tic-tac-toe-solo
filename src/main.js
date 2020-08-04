@@ -4,32 +4,23 @@ var whoseTurn = document.querySelector('.declare-turn');
 var allBoardSpaces = document.querySelectorAll('.board');
 var board = document.querySelector('.board-layout');
 
-var currentPlayer1;
-var currentPlayer2;
 var currentGame;
 
 winsPlayer1.addEventListener('click', updateRecord);
 winsPlayer2.addEventListener('click', updateRecord);
 board.addEventListener('click', addToken);
 window.addEventListener('load', function actOnLoad() {
-  enlistPlayers();
   startGame();
   showTurn();
-  showInitialRecord();
   retrieveWins();
 });
 
-function enlistPlayers() {
+function startGame() {
   var token1 = `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
   var token2 = `<img class="harper-with-smile" src="./assets/harper-with-smile.jpg" alt="player-two-token">`;
   var playerOne = new Player(1, token1);
   var playerTwo = new Player(2, token2);
-  currentPlayer1 = playerOne;
-  currentPlayer2 = playerTwo;
-};
-
-function startGame() {
-  var newGame = new Game(currentPlayer1, currentPlayer2, true, false);
+  var newGame = new Game(playerOne, playerTwo, true, false);
   currentGame = newGame;
 };
 
@@ -38,12 +29,12 @@ function addToken(event) {
   for (var i = 0; i < allBoardSpaces.length; i++) {
     if (event.target === allBoardSpaces[i] && allBoardSpaces[i].innerHTML === '') {
       if (currentGame.player1Turn) {
-        currentGame.placeToken(currentPlayer1, spaceNumber);
-        allBoardSpaces[i].innerHTML = currentPlayer1.token;
+        currentGame.placeToken(currentGame.playerOne, spaceNumber);
+        allBoardSpaces[i].innerHTML = currentGame.playerOne.token;
       }
       if (currentGame.player2Turn) {
-        currentGame.placeToken(currentPlayer2, spaceNumber);
-        allBoardSpaces[i].innerHTML = currentPlayer2.token;
+        currentGame.placeToken(currentGame.playerTwo, spaceNumber);
+        allBoardSpaces[i].innerHTML = currentGame.playerTwo.token;
       }
       switchTurns();
     }
@@ -54,10 +45,10 @@ function addToken(event) {
 
 function showTurn() {
   if (currentGame.player1Turn) {
-    whoseTurn.innerHTML = `<h1 class="turn">It's ${currentPlayer1.token}'s turn!</h1>`;
+    whoseTurn.innerHTML = `<h1 class="turn">It's ${currentGame.playerOne.token}'s turn!</h1>`;
   }
   if (currentGame.player2Turn) {
-    whoseTurn.innerHTML = `<h1 class="turn">It's ${currentPlayer2.token}'s turn!</h1>`;
+    whoseTurn.innerHTML = `<h1 class="turn">It's ${currentGame.playerTwo.token}'s turn!</h1>`;
   }
 };
 
@@ -66,25 +57,20 @@ function switchTurns() {
   currentGame.player2Turn = !currentGame.player2Turn;
 };
 
-function showInitialRecord() {
-  winsPlayer1.innerText = '0 WINS';
-  winsPlayer2.innerText = '0 WINS';
-};
-
 function updateFromGameEnd() {
   currentGame.detectDraw();
   if (currentGame.hasEnded) {
-    currentGame.resetGame(currentPlayer1, currentPlayer2);
+    currentGame.resetGame(currentGame.playerOne, currentGame.playerTwo);
     updateRecord();
     resetBoard();
   }
 };
 
 function verifyWinConditions() {
-  if (currentPlayer1.spacesTaken.length >=3 || currentPlayer2.spacesTaken.length >=3) {
-    currentGame.checkForWin(currentPlayer1);
+  if (currentGame.playerOne.spacesTaken.length >=3 || currentGame.playerTwo.spacesTaken.length >=3) {
+    currentGame.checkForWin(currentGame.playerOne);
     if (!currentGame.hasEnded) {
-      currentGame.checkForWin(currentPlayer2);
+      currentGame.checkForWin(currentGame.playerTwo);
     }
   }
   saveWins();
@@ -92,25 +78,25 @@ function verifyWinConditions() {
 };
 
 function updateRecord() {
-  winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentPlayer1.winCount} WINS</h1>`;
-  winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentPlayer2.winCount} WINS</h1>`;
+  winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentGame.playerOne.winCount} WINS</h1>`;
+  winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentGame.playerTwo.winCount} WINS</h1>`;
 };
 
 function resetBoard() {
   stateWinner();
-  window.setTimeout(clearBoard, 2600);
-  window.setTimeout(restartNewGame, 2600);
+  window.setTimeout(clearBoard, 1800);
+  window.setTimeout(restartNewGame, 1800);
 };
 
 function stateWinner() {
   whoseTurn.innerHTML = '';
-  if (currentPlayer1.hasVictory) {
-    whoseTurn.innerHTML = `<h2 class="turn">New victory for ${currentPlayer1.token}!`;
+  if (currentGame.playerOne.hasVictory) {
+    whoseTurn.innerHTML = `<h2 class="turn">New victory for ${currentGame.playerOne.token}!`;
   }
-  if (currentPlayer2.hasVictory) {
-    whoseTurn.innerHTML = `<h2 class="turn">New victory for ${currentPlayer2.token}!`;
+  if (currentGame.playerTwo.hasVictory) {
+    whoseTurn.innerHTML = `<h2 class="turn">New victory for ${currentGame.playerTwo.token}!`;
   }
-  if (!currentPlayer1.hasVictory && !currentPlayer2.hasVictory) {
+  if (!currentGame.playerOne.hasVictory && !currentGame.playerTwo.hasVictory) {
     whoseTurn.innerHTML = `<h1 class="turn">Sad woof, it's a tie</h1>`;
   }
 };
@@ -119,8 +105,8 @@ function restartNewGame() {
   startGame();
   switchTurns();
   showTurn();
-  currentPlayer1.hasVictory = false;
-  currentPlayer2.hasVictory = false;
+  currentGame.playerOne.hasVictory = false;
+  currentGame.playerTwo.hasVictory = false;
 };
 
 function clearBoard() {
@@ -130,17 +116,17 @@ function clearBoard() {
 };
 
 function saveWins() {
-  currentPlayer1.saveWinsToStorage();
-  currentPlayer2.saveWinsToStorage();
+  currentGame.playerOne.saveWinsToStorage();
+  currentGame.playerTwo.saveWinsToStorage();
 };
 
 function retrieveWins() {
-  currentPlayer1.retrieveWinsFromStorage();
-  currentPlayer2.retrieveWinsFromStorage();
+  currentGame.playerOne.retrieveWinsFromStorage();
+  currentGame.playerTwo.retrieveWinsFromStorage();
   displayRetrievedWins();
 };
 
 function displayRetrievedWins() {
-  winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentPlayer1.winCount} WINS</h1>`;
-  winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentPlayer2.winCount} WINS</h1>`;
+  winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentGame.playerOne.winCount} WINS</h1>`;
+  winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentGame.playerTwo.winCount} WINS</h1>`;
 };
