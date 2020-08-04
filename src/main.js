@@ -10,8 +10,6 @@ var winsPlayer1 = document.querySelector('.player-one-wins');
 var winsPlayer2 = document.querySelector('.player-two-wins');
 var whoseTurn = document.querySelector('.declare-turn');
 var allSpaces = document.querySelectorAll('.board');
-var token1 = document.querySelector('.harper-with-tongue');
-var token2 = document.querySelector('.harper-with-smile');
 var board = document.querySelector('.board-layout');
 
 //////// event listeners ////////
@@ -30,6 +28,8 @@ window.addEventListener('load', function actOnLoad() {
 //////// event handlers ////////
 
 function enlistPlayers() {
+  var token1 = `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
+  var token2 = `<img class="harper-with-smile" src="./assets/harper-with-smile.jpg" alt="player-two-token">`;
   var playerOne = new Player(1, token1);
   var playerTwo = new Player(2, token2);
   currentPlayer1 = playerOne;
@@ -41,19 +41,18 @@ function startGame() {
   currentGame = newGame;
 };
 
-function addToken(event) {
+function addToken(event, player) {
   var spaceNumber = event.target.classList[1].split('-')[1];
   for (var i = 0; i < allSpaces.length; i++) {
-    if (event.target === allSpaces[i] && currentGame.player1Turn && allSpaces[i].innerHTML === '') {
-      currentPlayer1.placeToken(currentPlayer1, currentGame, spaceNumber);
-      allSpaces[i].innerHTML =
-        `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
-      switchTurns();
-    }
-    if (event.target === allSpaces[i] && currentGame.player2Turn && allSpaces[i].innerHTML === '') {
-      currentPlayer2.placeToken(currentPlayer2, currentGame, spaceNumber);
-      allSpaces[i].innerHTML =
-        `<img class="harper-with-smile" src="./assets/harper-with-smile.jpg" alt="player-two-token">`;
+    if (event.target === allSpaces[i] && allSpaces[i].innerHTML === '') {
+      if (currentGame.player1Turn) {
+        currentPlayer1.placeToken(currentPlayer1, currentGame, spaceNumber);
+        allSpaces[i].innerHTML = currentPlayer1.token;
+      }
+      if (currentGame.player2Turn) {
+        currentPlayer2.placeToken(currentPlayer2, currentGame, spaceNumber);
+        allSpaces[i].innerHTML = currentPlayer2.token;
+      }
       switchTurns();
     }
   }
