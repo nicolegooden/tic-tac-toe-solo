@@ -1,18 +1,12 @@
-//////// global variables ////////
-
-var currentPlayer1;
-var currentPlayer2;
-var currentGame;
-
-//////// query selectors ////////
-
 var winsPlayer1 = document.querySelector('.player-one-wins');
 var winsPlayer2 = document.querySelector('.player-two-wins');
 var whoseTurn = document.querySelector('.declare-turn');
 var allBoardSpaces = document.querySelectorAll('.board');
 var board = document.querySelector('.board-layout');
 
-//////// event listeners ////////
+var currentPlayer1;
+var currentPlayer2;
+var currentGame;
 
 winsPlayer1.addEventListener('click', updateRecord);
 winsPlayer2.addEventListener('click', updateRecord);
@@ -24,8 +18,6 @@ window.addEventListener('load', function actOnLoad() {
   showInitialRecord();
   retrieveWins();
 });
-
-//////// event handlers & other functions ////////
 
 function enlistPlayers() {
   var token1 = `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
@@ -80,8 +72,9 @@ function showInitialRecord() {
 };
 
 function updateFromGameEnd() {
-  currentGame.detectReset(currentPlayer1, currentPlayer2);
+  currentGame.detectDraw();
   if (currentGame.hasEnded) {
+    currentGame.resetGame(currentPlayer1, currentPlayer2);
     updateRecord();
     resetBoard();
   }
