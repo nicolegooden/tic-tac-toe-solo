@@ -21,7 +21,7 @@ window.addEventListener('load', function actOnLoad() {
   enlistPlayers();
   startGame();
   showTurn();
-  showRecord();
+  showInitialRecord();
   retrieveWins();
 });
 
@@ -74,7 +74,7 @@ function switchTurns() {
   currentGame.player2Turn = !currentGame.player2Turn;
 };
 
-function showRecord() {
+function showInitialRecord() {
   winsPlayer1.innerText = '0 WINS';
   winsPlayer2.innerText = '0 WINS';
 };
