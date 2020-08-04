@@ -7,18 +7,6 @@ class Player {
     this.hasVictory = false;
   }
 
-  placeToken(player, game, space) {
-    var mySpace = parseInt(space);
-    game.blockedSpaces += 1;
-    game.availableSpaces -= 1;
-    for (var i = 0; i < game.allSpaces.length; i++) {
-      if (game.allSpaces[i] == mySpace) {
-        game.allSpaces.splice(i, 1);
-      }
-    }
-    this.spacesTaken.push(mySpace);
-  }
-
   saveWinsToStorage() {
     if (this.id === 1) {
       var p1WinsForStorage = JSON.stringify(this.winCount);
@@ -33,10 +21,12 @@ class Player {
     if (this.id === 1) {
       var p1RetrievedWins = localStorage.getItem('player 1 wins');
       var p1ParsedWins = JSON.parse(p1RetrievedWins);
+      this.winCount = p1ParsedWins;
       winsPlayer1.innerHTML = `<h1 class="player-one-wins">${p1ParsedWins} WINS</h1>`;
     } else {
       var p2RetrievedWins = localStorage.getItem('player 2 wins');
       var p2ParsedWins = JSON.parse(p2RetrievedWins);
+      this.winCount = p2ParsedWins;
       winsPlayer2.innerHTML = `<h1 class="player-two-wins">${p2ParsedWins} WINS</h1>`;
     }
   }

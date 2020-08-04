@@ -6,23 +6,31 @@ class Game {
     this.blockedSpaces = 0;
     this.allSpaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     this.hasEnded = false;
-    this.readyToReset = false;
     this.player1Turn = player1Turn;
     this.player2Turn = player2Turn;
   }
 
-  // enlistPlayers() {
-  //   var currentPlayer1  = new Player(1, token1);
-  //   var currentPlayer2 = new Player(2, token2);
-  // }
+  placeToken(player, space) {
+    var mySpace = parseInt(space);
+    this.blockedSpaces += 1;
+    this.availableSpaces -= 1;
+    for (var i = 0; i < this.allSpaces.length; i++) {
+      if (this.allSpaces[i] == mySpace) {
+        this.allSpaces.splice(i, 1);
+      }
+    }
+    player.spacesTaken.push(mySpace);
+  }
 
   checkForWin(player) {
     if (player.spacesTaken.includes(0) && player.spacesTaken.includes(1) && player.spacesTaken.includes(2)) {
       player.winCount += 1;
+      player.hasVictory = true;
       return this.hasEnded = true;
     }
     if (player.spacesTaken.includes(3) && player.spacesTaken.includes(4) && player.spacesTaken.includes(5)) {
       player.winCount += 1;
+      player.hasVictory = true;
       return this.hasEnded = true;
     }
     if (player.spacesTaken.includes(6) && player.spacesTaken.includes(7) && player.spacesTaken.includes(8)) {
@@ -61,10 +69,6 @@ class Game {
   detectReset(player1, player2) {
     if ((this.hasEnded) || (this.availableSpaces === 0) || (this.blockedSpaces === 9)) {
       this.hasEnded = true;
-      this.availableSpaces = 9;
-      this.blockedSpaces = 0;
-      this.readyToReset = true;
-      this.allSpaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       player1.spacesTaken = [];
       player2.spacesTaken = [];
     }

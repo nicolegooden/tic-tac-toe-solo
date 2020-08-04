@@ -9,9 +9,7 @@ var currentGame;
 var winsPlayer1 = document.querySelector('.player-one-wins');
 var winsPlayer2 = document.querySelector('.player-two-wins');
 var whoseTurn = document.querySelector('.declare-turn');
-var allSpaces = document.querySelectorAll('.board');
-var token1 = document.querySelector('.harper-with-tongue');
-var token2 = document.querySelector('.harper-with-smile');
+var allBoardSpaces = document.querySelectorAll('.board');
 var board = document.querySelector('.board-layout');
 
 //////// event listeners ////////
@@ -27,9 +25,11 @@ window.addEventListener('load', function actOnLoad() {
   retrieveWins();
 });
 
-//////// event handlers ////////
+//////// event handlers & other functions ////////
 
 function enlistPlayers() {
+  var token1 = `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
+  var token2 = `<img class="harper-with-smile" src="./assets/harper-with-smile.jpg" alt="player-two-token">`;
   var playerOne = new Player(1, token1);
   var playerTwo = new Player(2, token2);
   currentPlayer1 = playerOne;
@@ -43,17 +43,16 @@ function startGame() {
 
 function addToken(event) {
   var spaceNumber = event.target.classList[1].split('-')[1];
-  for (var i = 0; i < allSpaces.length; i++) {
-    if (event.target === allSpaces[i] && currentGame.player1Turn && allSpaces[i].innerHTML === '') {
-      currentPlayer1.placeToken(currentPlayer1, currentGame, spaceNumber);
-      allSpaces[i].innerHTML =
-        `<img class="harper-with-tongue" src="./assets/harper-with-tongue.jpg" alt="player-one-token">`;
-      switchTurns();
-    }
-    if (event.target === allSpaces[i] && currentGame.player2Turn && allSpaces[i].innerHTML === '') {
-      currentPlayer2.placeToken(currentPlayer2, currentGame, spaceNumber);
-      allSpaces[i].innerHTML =
-        `<img class="harper-with-smile" src="./assets/harper-with-smile.jpg" alt="player-two-token">`;
+  for (var i = 0; i < allBoardSpaces.length; i++) {
+    if (event.target === allBoardSpaces[i] && allBoardSpaces[i].innerHTML === '') {
+      if (currentGame.player1Turn) {
+        currentGame.placeToken(currentPlayer1, spaceNumber);
+        allBoardSpaces[i].innerHTML = currentPlayer1.token;
+      }
+      if (currentGame.player2Turn) {
+        currentGame.placeToken(currentPlayer2, spaceNumber);
+        allBoardSpaces[i].innerHTML = currentPlayer2.token;
+      }
       switchTurns();
     }
   }
@@ -63,10 +62,10 @@ function addToken(event) {
 
 function showTurn() {
   if (currentGame.player1Turn) {
-    whoseTurn.innerHTML = `<h1 class="turn">It's <img class="harper-with-tongue small" src="./assets/harper-with-tongue.jpg" alt="player-one-token">'s turn!</h1>`;
+    whoseTurn.innerHTML = `<h1 class="turn">It's ${currentPlayer1.token}'s turn!</h1>`;
   }
   if (currentGame.player2Turn) {
-    whoseTurn.innerHTML = `<h1 class="turn">It's <img class="harper-with-smile small" src="./assets/harper-with-smile.jpg" alt="player-two-token">'s turn!</h1>`;
+    whoseTurn.innerHTML = `<h1 class="turn">It's ${currentPlayer2.token}'s turn!</h1>`;
   }
 };
 
@@ -95,14 +94,13 @@ function verifyWinConditions() {
       currentGame.checkForWin(currentPlayer2);
     }
   }
+  saveWins();
   updateFromGameEnd();
 };
 
 function updateRecord() {
   winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentPlayer1.winCount} WINS</h1>`;
   winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentPlayer2.winCount} WINS</h1>`;
-  currentPlayer1.saveWinsToStorage();
-  currentPlayer2.saveWinsToStorage();
 };
 
 function resetBoard() {
@@ -114,10 +112,10 @@ function resetBoard() {
 function stateWinner() {
   whoseTurn.innerHTML = '';
   if (currentPlayer1.hasVictory) {
-    whoseTurn.innerHTML = `<h2 class="turn">New victory for <img class="harper-with-tongue small" src="./assets/harper-with-tongue.jpg" alt="player-one-token">!</h2>`;
+    whoseTurn.innerHTML = `<h2 class="turn">New victory for ${currentPlayer1.token}!`;
   }
   if (currentPlayer2.hasVictory) {
-    whoseTurn.innerHTML = `<h2 class="turn">New victory for <img class="harper-with-smile small" src="./assets/harper-with-smile.jpg" alt="player-two-token">!</h2>`;
+    whoseTurn.innerHTML = `<h2 class="turn">New victory for ${currentPlayer2.token}!`;
   }
   if (!currentPlayer1.hasVictory && !currentPlayer2.hasVictory) {
     whoseTurn.innerHTML = `<h1 class="turn">Sad woof, it's a tie</h1>`;
@@ -133,9 +131,14 @@ function restartNewGame() {
 };
 
 function clearBoard() {
-  for (var i = 0; i < allSpaces.length; i++) {
-    allSpaces[i].innerHTML = '';
+  for (var i = 0; i < allBoardSpaces.length; i++) {
+    allBoardSpaces[i].innerHTML = '';
   }
+};
+
+function saveWins() {
+  currentPlayer1.saveWinsToStorage();
+  currentPlayer2.saveWinsToStorage();
 };
 
 function retrieveWins() {
