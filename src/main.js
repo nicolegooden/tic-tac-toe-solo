@@ -16,13 +16,15 @@ var board = document.querySelector('.board-layout');
 
 //////// event listeners ////////
 
-winsPlayer1.addEventListener('click', increaseRecord);
-winsPlayer2.addEventListener('click', increaseRecord);
+winsPlayer1.addEventListener('click', updateRecord);
+winsPlayer2.addEventListener('click', updateRecord);
+board.addEventListener('click', addToken);
 board.addEventListener('click', addToken);
 window.addEventListener('load', enlistPlayers);
 window.addEventListener('load', startGame);
 window.addEventListener('load', showTurn);
 window.addEventListener('load', showRecord);
+window.addEventListener('load', retrieveWins);
 
 //////// event handlers ////////
 
@@ -77,6 +79,14 @@ function showRecord() {
   winsPlayer2.innerText = '0 WINS';
 };
 
+function updateFromGameEnd() {
+  currentGame.detectReset(currentPlayer1, currentPlayer2);
+  if (currentGame.hasEnded) {
+    updateRecord();
+    resetBoard();
+  }
+};
+
 function verifyWinConditions() {
   if (currentPlayer1.spacesTaken.length >=3 || currentPlayer2.spacesTaken.length >=3) {
     currentGame.checkForWin(currentPlayer1);
@@ -84,23 +94,19 @@ function verifyWinConditions() {
       currentGame.checkForWin(currentPlayer2);
     }
   }
-  currentGame.detectReset(currentPlayer1, currentPlayer2);
-  if (currentGame.hasEnded) {
-    increaseRecord();
-    resetBoard();
-  }
+  updateFromGameEnd();
 };
 
-function increaseRecord() {
+function updateRecord() {
   winsPlayer1.innerHTML = `<h1 class="player-one-wins">${currentPlayer1.winCount} WINS</h1>`;
   winsPlayer2.innerHTML = `<h1 class="player-two-wins">${currentPlayer2.winCount} WINS</h1>`;
+  currentPlayer1.saveWinsToStorage();
+  currentPlayer2.saveWinsToStorage();
 };
 
 function resetBoard() {
-  for (var i = 0; i < allSpaces.length; i++) {
-    allSpaces[i].innerHTML = '';
-  }
   stateWinner();
+  window.setTimeout(clearBoard, 2600);
   window.setTimeout(restartNewGame, 2600);
 };
 
@@ -121,4 +127,17 @@ function restartNewGame() {
   startGame();
   switchTurns();
   showTurn();
+  currentPlayer1.hasVictory = false;
+  currentPlayer2.hasVictory = false;
+};
+
+function clearBoard() {
+  for (var i = 0; i < allSpaces.length; i++) {
+    allSpaces[i].innerHTML = '';
+  }
+};
+
+function retrieveWins() {
+  currentPlayer1.retrieveWinsFromStorage();
+  currentPlayer2.retrieveWinsFromStorage();
 }
