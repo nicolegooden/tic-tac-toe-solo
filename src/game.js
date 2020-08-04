@@ -10,6 +10,18 @@ class Game {
     this.player2Turn = player2Turn;
   }
 
+  placeToken(player, space) {
+    var mySpace = parseInt(space);
+    this.blockedSpaces += 1;
+    this.availableSpaces -= 1;
+    for (var i = 0; i < this.allSpaces.length; i++) {
+      if (this.allSpaces[i] == mySpace) {
+        this.allSpaces.splice(i, 1);
+      }
+    }
+    player.spacesTaken.push(mySpace);
+  }
+
   checkForWin(player) {
     if (player.spacesTaken.includes(0) && player.spacesTaken.includes(1) && player.spacesTaken.includes(2)) {
       player.winCount += 1;
