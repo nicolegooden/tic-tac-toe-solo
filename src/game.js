@@ -6,7 +6,6 @@ class Game {
     this.blockedSpaces = 0;
     this.allSpaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     this.hasEnded = false;
-    this.readyToReset = false;
     this.player1Turn = player1Turn;
     this.player2Turn = player2Turn;
   }
@@ -58,10 +57,6 @@ class Game {
   detectReset(player1, player2) {
     if ((this.hasEnded) || (this.availableSpaces === 0) || (this.blockedSpaces === 9)) {
       this.hasEnded = true;
-      this.availableSpaces = 9;
-      this.blockedSpaces = 0;
-      this.readyToReset = true;
-      this.allSpaces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       player1.spacesTaken = [];
       player2.spacesTaken = [];
     }
