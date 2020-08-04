@@ -1,2 +1,4 @@
 node_modules
 pr-template.md
+src/test/player-test.js
+src/test/game-test.js
