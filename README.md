@@ -39,21 +39,46 @@ ___
 
 ## Features
 
+#### Initial Display
+
+When the application is opened for the first time, each player will start with an icon and zero wins.  The player on the left will make the first move.
+
+![initial display](http://g.recordit.co/JL6eUKjYuE.gif)
+
 #### Players Switch Turns
+
+When one player places a token on the board, the application indicates to the user that it is the next player's turn.  This is done with a statement above the center of the game board.  
+
+![players switch turns](http://g.recordit.co/h0DoRbA9zT.gif)
+
+#### Board - Only Click Here on Your Turn
+
+When the user clicks anywhere on the page other than an open board space, nothing new will happen.  That player's turn will stay active until their corresponding token is shown on the board.
+
+![board - only click here on your turn](http://g.recordit.co/nwWFyvxXio.gif)
 
 #### Game is Won
 
+When either player's tokens resemble any of the eight win conditions, the announcement of the win is shown where the turn usually exists.  As this is shown, the winning player's record is updated.
+
+![game is won](http://g.recordit.co/uOxx5SBVTX.gif)
+
 #### Game Ends in tie
+
+When none of the players' tokens resemble a win condition, the game is ended in a tie.  A different message is shown here, and neither player earns an increase in score.
+
+![game ends in tie](http://g.recordit.co/O8BH7XzOz3.gif)
 
 #### Maintain Records on Reload
 
+When the page is refreshed, each player's score will stay consistent with what the user expects to see.  To restart the win counts from zero, the application's local storage must be cleared in the console.  Otherwise, the users will experience an infinite number of rounds!
+
+![maintain records on reload](http://g.recordit.co/ewX3h9FD4a.gif)
+
 #### Auto Restart on Game End
 
-#### Board - Only Click Here on Your Turn  
-
-
-
-
+Each time a game ends, whether it is by win or tie, the `setTimeout()` method is used to both clear the board and start a new game.  This is exhibited above.
+___
 
 ## Challenges
 
@@ -73,6 +98,7 @@ ___
 
 + Data Model VS Document Object Model - throughout the course of this project, I have been keeping the separation of data model from DOM at the forefront of my mind.  I spent a significant amount of time working in my `game.js` and `player.js` prior to working on any HTML/CSS/DOM-related code, to ensure that my win conditions and player moves could be tracked solely by the data models.  I found this to be true as I implemented the DOM in `main.js`, as many of these functions rely on an update/checking of the data model.  I am especially proud of my `checkForWins()` method on the Game object, as well as my `placeToken()` method, both of which are called on the object to update a majority of the required data models (`spacesTaken[]`, `allSpaces[]`, etc.).  This is a huge win for me because the distinction between the data model and the DOM was not entirely clear to me when the project was assigned, but this concept quickly fell into place.
 ___
+
 ## Next Steps
 
 Although this project is considered a success, here are some developer moves I would make in due time:
