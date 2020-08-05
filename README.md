@@ -69,3 +69,9 @@ ___
 ## Wins
 
 ## Next Steps
+
+Although this project is considered a success, here are some developer moves I would make in due time:
+
++ Make the `addToken()` function in `main.js` more dynamic and DRY.  Some minor refactoring was done in an attempt to reach this goal, but I realize it is not yet where it needs to be, as some competitive code remains in the function.  To mitigate this, I plan to shift the responsibility of tracking turns from the Game to the Player.  In this way, the conditional that checks for which player's turn it is based on the game object would not be necessary.  With this shift comes an opportunity to easily pass in arguments of each existing Player to `addToken()`, invoke `placeToken()` with the player passed in as an argument, and insert the HTML for that player's token.  This could reduce about half of the code that makes this functionality happen.   
+
++ Refactor the Game class's `checkForWins()` method.  This method is not very DRY as it is, and there are some ample opportunities for a solid refactor.  First, I realize I am checking for eight different win conditions, and if any of them evaluate to true, the same three lines of code are executed.  These lines of code are responsible for increasing the current win count, assigning the `hasVictory` property a value of true, and exiting the method with a return of `this.hasEnded = true`.  My idea to reduce some of this code is to create an array of arrays that contain winning combinations.  This way, I could use the method to check for wins against each winning combination at every index in the wins array.  Essentially, my code would be asking "does this index have an array that matches all of my player's taken spaces?"  A `for loop` and a single conditional could accomplish this task with some time permitted to achieve it.  The three lines of code that are executed per win condition being met would then exist just once in the method.
