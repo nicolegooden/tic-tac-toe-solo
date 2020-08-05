@@ -37,4 +37,35 @@ Many of my goals included, but were not limited to:
 + Use arguments and parameters to ensure code is dynamic
 ___
 
-## 
+## Features
+
+#### Players Switch Turns
+
+#### Game is Won
+
+#### Game Ends in tie
+
+#### Maintain Records on Reload
+
+#### Auto Restart on Game End
+
+#### Board - Only Click Here on Your Turn  
+
+
+
+
+
+## Challenges (in detail)
+
+
+## Problem-Solving Strategies
+
++ Pseudocode - particularly in the InVision board which details the required functionality in `main` and the required methods and properties of the Game and Player objects.
+
++ Chrome Debugger - this has been my most reliable source of debugging my application.  On numerous occasions, I had been able to add breakpoints where I suspected a bug had evolved.  These breakpoints allowed me to track the values of variables as I stepped into functions, determine how conditionals were being evaluated, decide where a function or method was overriding what I ultimately expected to see upon an event, et cetera.  It was so valuable for me to go step-by-step in the functionality to not only identify where the bug existed, but also to gain a deeper conceptual understanding of how my code was performing.
+
++ Console Log - this was used more often in the early phases of developing the application, particularly when checking for win and tie conditions in the test files and the console.  For instance, I added `console.log()` to be executed if certain win conditions evaluated to true, which helped me determine if the conditions were met by either player.  
+
+## Wins
+
+## Next Steps
