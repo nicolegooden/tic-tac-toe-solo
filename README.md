@@ -67,9 +67,12 @@ ___
 + Chrome Debugger - this has been my most reliable source of debugging my application.  On numerous occasions, I had been able to add breakpoints where I suspected a bug had evolved.  These breakpoints allowed me to track the values of variables as I stepped into functions, determine how conditionals were being evaluated, decide where a function or method was overriding what I ultimately expected to see upon an event, et cetera.  It was so valuable for me to go step-by-step in the functionality to not only identify where the bug existed, but also to gain a deeper conceptual understanding of how my code was performing.
 
 + Console Log - this was used more often in the early phases of developing the application, particularly when checking for win and tie conditions in the test files and the console.  For instance, I added `console.log()` to be executed if certain win conditions evaluated to true, which helped me determine if the conditions were met by either player.  
+___
 
 ## Wins
 
++ Data Model VS Document Object Model - throughout the course of this project, I have been keeping the separation of data model from DOM at the forefront of my mind.  I spent a significant amount of time working in my `game.js` and `player.js` prior to working on any HTML/CSS/DOM-related code, to ensure that my win conditions and player moves could be tracked solely by the data models.  I found this to be true as I implemented the DOM in `main.js`, as many of these functions rely on an update/checking of the data model.  I am especially proud of my `checkForWins()` method on the Game object, as well as my `placeToken()` method, both of which are called on the object to update a majority of the required data models (`spacesTaken[]`, `allSpaces[]`, etc.).  This is a huge win for me because the distinction between the data model and the DOM was not entirely clear to me when the project was assigned, but this concept quickly fell into place.
+___
 ## Next Steps
 
 Although this project is considered a success, here are some developer moves I would make in due time:
