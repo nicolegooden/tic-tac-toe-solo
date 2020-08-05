@@ -23,3 +23,18 @@ The Document Object Model takes on the role of providing the user experience as 
 + Many more!
 
 Local storage and JSON are used to persist players' win counts on page reload or refresh.  When the application is initially opened in the browser, each player will have zero wins.  After that, if any wins have been earned and the page is reloaded, the win count will remain the same.  The only way to clear the win count and start anew is to call `localStorage.clear()` in the console.
+___
+
+## Goals
+
+Many of my goals included, but were not limited to:
+
++ Follow the Single Responsibility Principle (SRP) of developing and writing code
++ Intentionally distinguish between the data model and the DOM, both in code and in explanation
++ Write DRY code as often as possible
++ Implement local storage and JSON to persist player data
++ Limit global variables
++ Use arguments and parameters to ensure code is dynamic
+___
+
+## 
