@@ -2,7 +2,7 @@ class Player {
   constructor(id, token) {
     this.id = id;
     this.token = token;
-    this.winCount = 0;
+    this.winCount = this.retrieveWinsFromStorage();
     this.spacesTaken = [];
     this.hasVictory = false;
   }
@@ -21,15 +21,11 @@ class Player {
     if (this.id === 1) {
       var p1RetrievedWins = localStorage.getItem('player 1 wins');
       var p1ParsedWins = JSON.parse(p1RetrievedWins);
-      this.winCount = p1ParsedWins;
-      winsPlayer1.innerHTML = `<h1 class="player-one-wins">${p1ParsedWins} WINS</h1>`;
+      return p1ParsedWins ? p1ParsedWins : 0;
     } else {
       var p2RetrievedWins = localStorage.getItem('player 2 wins');
       var p2ParsedWins = JSON.parse(p2RetrievedWins);
-      this.winCount = p2ParsedWins;
-      winsPlayer2.innerHTML = `<h1 class="player-two-wins">${p2ParsedWins} WINS</h1>`;
+      return p2ParsedWins ? p2ParsedWins : 0;
     }
   }
 };
-
-// module.exports = Player;

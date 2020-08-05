@@ -66,13 +66,14 @@ class Game {
     this.hasEnded = false;
   }
 
-  detectReset(player1, player2) {
+  detectDraw() {
     if ((this.hasEnded) || (this.availableSpaces === 0) || (this.blockedSpaces === 9)) {
       this.hasEnded = true;
-      player1.spacesTaken = [];
-      player2.spacesTaken = [];
     }
   }
-};
 
-// module.exports = Game;
+  resetGame(player1, player2) {
+    player1.spacesTaken = [];
+    player2.spacesTaken = [];
+  }
+};
