@@ -55,8 +55,10 @@ ___
 
 
 
-## Challenges (in detail)
+## Challenges
 
++ Local Storage - my first attempt at implementing local storage occurred during this project.  This was a true self-teaching experience.  First, I had to figure out how local storage worked for each Player object.  Then, I was unsure of where to call these methods in the main file.  I realized that the players' wins should be saved to storage before the game is reset or the page reloads, and the players' wins should be retrieved from storage as the page reloads.  I struggled the most when I began instantiating the two players inside of the `startGame()` function.  When I made this change, I noticed a new bug popped up: the players' win counts would show as `null wins` instead of `0 wins`, but would eventually show correctly when each player's win count was greater than zero.  I spent some time in the debugger working through where the problem was occurring, and found that I was always assigning the value of `p1ParsedWins` or `p2ParsedWins`, which was falsey when the app first loaded.  To combat this, I added a ternary in `retrieveWinsFromStorage` so that the value of those parsed wins were either 1) the previously saved win count or 2) if there was not a previously saved win count, a default of zero.  I also assigned the initial value of each player object's `winCount` to the invocation of `retrieveWinsFromStorage`, so that this property would always be assigned to whichever value was returned by the ternary.   
+___
 
 ## Problem-Solving Strategies
 
